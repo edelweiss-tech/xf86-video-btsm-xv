@@ -1,0 +1,19 @@
+Source: xf86-video-btsm750
+Section: x11
+Priority: optional
+Maintainer: Konstantin Kirik (snegovick) <snegovick@uprojects.org>
+Build-Depends: autoconf (>= 2.64),
+               automake (>= 1.11),
+               autopoint,
+               autotools-dev,
+               debhelper (>= 9),
+               gettext,
+               xutils-dev
+Standards-Version: 3.9.4
+Homepage: http://github.com/snegovick/xf86-video-btsm750
+
+Package: xf86-video-btsm750
+Architecture: mipsel
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: X.Org X server -- siliconmotion sm750 display driver
+  This package provides the driver for siliconmotion sm750 chip on Baikal-T1 based boards.
