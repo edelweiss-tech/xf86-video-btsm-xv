@@ -46,6 +46,7 @@ typedef struct {
 	int				lineLength;
 	int				rotate;
 	Bool				shadowFB;
+	Bool				shadow24;
 	void				*shadow;
 	CloseScreenProcPtr		CloseScreen;
 	CloseScreenProcPtr		dma_CloseScreen;
