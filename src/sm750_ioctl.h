@@ -17,4 +17,8 @@ typedef struct {
 #define DW_PCI_DMA_RUNNING		0x1
 #define DW_PCI_DMA_HALTED		0x2
 #define DW_PCI_DMA_DONE			0x3
+
+/* Offset for mmap()-ing shadow FB */
+#define SHADOW_FB_OFFSET	0x10000000
+
 #endif
