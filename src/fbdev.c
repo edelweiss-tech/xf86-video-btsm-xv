@@ -66,11 +66,11 @@
 static Bool debug = 0;
 
 #define TRACE_ENTER(str) \
-    do { if (debug) ErrorF("btsm750: " str " %d\n",pScrn->scrnIndex); } while (0)
+    do { if (debug) ErrorF("btsm: " str " %d\n",pScrn->scrnIndex); } while (0)
 #define TRACE_EXIT(str) \
-    do { if (debug) ErrorF("btsm750: " str " done\n"); } while (0)
+    do { if (debug) ErrorF("btsm: " str " done\n"); } while (0)
 #define TRACE(str) \
-    do { if (debug) ErrorF("btsm750 trace: " str "\n"); } while (0)
+    do { if (debug) ErrorF("btsm trace: " str "\n"); } while (0)
 
 /* -------------------------------------------------------------------- */
 /* prototypes                                                           */
@@ -103,8 +103,8 @@ enum { FBDEV_ROTATE_NONE=0, FBDEV_ROTATE_CW=270, FBDEV_ROTATE_UD=180, FBDEV_ROTA
 static int pix24bpp = 0;
 
 #define FBDEV_VERSION		4000
-#define FBDEV_NAME		"btsm750"
-#define FBDEV_DRIVER_NAME	"btsm750"
+#define FBDEV_NAME		"btsm"
+#define FBDEV_DRIVER_NAME	"btsm"
 
 #ifdef XSERVER_LIBPCIACCESS
 static const struct pci_id_match fbdev_device_match[] = {
@@ -139,6 +139,7 @@ _X_EXPORT DriverRec FBDEV = {
 /* Supported "chipsets" */
 static SymTabRec FBDevChipsets[] = {
     { 0, "SM750" },
+    { 0, "SM768" },
     {-1, NULL }
 };
 
@@ -192,7 +193,7 @@ MODULESETUPPROTO(FBDevSetup);
 
 static XF86ModuleVersionInfo FBDevVersRec =
 {
-	"btsm750",
+	"btsm",
 	MODULEVENDORSTRING,
 	MODINFOSTRING1,
 	MODINFOSTRING2,
@@ -204,7 +205,7 @@ static XF86ModuleVersionInfo FBDevVersRec =
 	{0,0,0,0}
 };
 
-_X_EXPORT XF86ModuleData btsm750ModuleData = { &FBDevVersRec, FBDevSetup, NULL };
+_X_EXPORT XF86ModuleData btsmModuleData = { &FBDevVersRec, FBDevSetup, NULL };
 
 pointer
 FBDevSetup(pointer module, pointer opts, int *errmaj, int *errmin)
