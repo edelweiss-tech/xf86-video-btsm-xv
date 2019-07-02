@@ -286,19 +286,18 @@ void SMI_DMAInit(ScreenPtr pScreen)
 	fPtr->flags &= ~FL_USE_DMA;
 	return;
     }
-    /* BAIKAL: Use /dev/mem to allocate a device framebuffer in order to
-     * benefit from 'Uncached Accelerated' memory attribute
+    /*
+     * BAIKAL: Use /dev/fb with offset 256MB to allocate a contiguous
+     * physical memory for shadow buffer in order to benefit from 
+     * DMA transfers to VRAM. This is supported by smifb driver.
      */
-    int mem_fd = open("/dev/mem", O_RDWR);
-    off_t addr = RESERVED_MEM_ADDR;
+    off_t addr = SHADOW_FB_OFFSET;
     unsigned screensize = pScrn->virtualX * pScrn->virtualY *
 	                  ((pScrn->bitsPerPixel + 7) / 8);
     char *shadow_mem = NULL;
 
-    xf86DrvMsg(pScrn->scrnIndex, X_INFO, "mmaping %i Bytes (w: %i, h: %i, Bpp: %i)\n",
-               screensize, pScrn->virtualY, pScrn->virtualX, pScrn->bitsPerPixel);
     shadow_mem = mmap(0, screensize, PROT_READ | PROT_WRITE,
-                            MAP_SHARED, mem_fd, addr);
+                            MAP_SHARED, fb_fd, addr);
     if (shadow_mem == MAP_FAILED) {
         xf86Msg(X_ERROR, "Unable to map DMA ShadowFB\n");
         return;
