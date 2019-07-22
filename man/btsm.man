@@ -1,43 +1,31 @@
 .\" shorthand for double quote that works everywhere.
 .ds q \N'34'
-.TH FBTURBO __drivermansuffix__ __vendorversion__
+.TH BTSM __drivermansuffix__ __vendorversion__
 .SH NAME
-fbturbo \- video driver for Allwinner and other ARM-based devices
+xsever-xorg-video-btsm \- video driver for SiliconMotion sm750 and sm768 chips on T-Platforms boards.
 .SH SYNOPSIS
 .nf
 .B "Section \*qDevice\*q"
-.BI "  Identifier \*q"  devname \*q
-.B  "  Driver \*qfbturbo\*q"
+.BI "  Identifier \*q"  smi \*q
+.B  "  Driver \*qbtsm\*q"
 \ \ ...
 .B EndSection
 .fi
 .SH DESCRIPTION
-.B fbturbo
-is an __xservername__ driver for Allwinner and other ARM-based devices,
+.B xserver-xorg-video-btsm
+is an __xservername__ driver for SiliconMotion sm750 and sm768 video chips available on T-Platforms boards,
 derived from
-.B fbdev
+.B fbdev and fbturbo
 driver.
-With regard to 2D graphics, it provides a number of software optimizations
-on all platforms, while letting the SIMD (ARM NEON) accelerated code from the
-.B pixman
-library run at full speed without any unnecessary overhead. 2D hardware
-acceleration using G2D is supported on sunxi platforms. The recommended
-framebuffer color depths are 16 (RGB565) and 24 (XRGB8888), the other color
-depths may be supported too. Multi-head configurations are supported.
+Most notable features include extensive DMA usage and XVideo backend support
 .SH SUPPORTED HARDWARE
 The 
-.B fbturbo
-driver supports all hardware where a framebuffer driver is available and
+.B btsm
+driver supports all T-Platforms hardware where a framebuffer driver is available and
 uses the os-specific submodule fbdevhw(__drivermansuffix__) to talk
 to the kernel
-device driver.  Currently a fbdevhw module is available for linux.
-Additionally it is intended to use some of the display controller features
-from Allwinner A10/A13 SoC and provide the necessary DRI2 integration with
-the proprietary OpenGL ES binary blobs for Mali400 GPU (if they are installed
-in the system). The part related to Mali400 GPU support is derived from
-the vendor provided open source
-.B xf86-video-mali
-driver.
+device driver. If SiliconMotion sm750 and sm768 chips are used, 
+the driver will enable XVideo backend and manage DMA to handle buffers.
 .SH CONFIGURATION DETAILS
 Please refer to __xconfigfile__(__filemansuffix__) for general configuration
 details.  This section only covers configuration details specific to
@@ -45,13 +33,44 @@ this driver.
 .PP
 For this driver it is not required to specify modes in the screen 
 section of the config file.  The
-.B fbturbo
+.B btsm
 driver can pick up the currently used video mode from the framebuffer 
 driver and will use it if there are no video modes configured.
+Although, you can manually set Modelines in /etc/X11/xorg.conf.d 
+by creating a file with contents as follows:
+.PP
+.nf
+.BI "  Section \*qMonitor\*q"
+.BI "      Identifier \*qMonitor0\*q"
+.BI "      #HorizSync 42.0 - 52.0"
+.BI "      #VertRefresh 55.0 - 65.0"
+.PP
+.BI "      Option \*qDPMS\*q     \*qtrue\*q"
+.BI "      Modeline \*q1920x1080\*q 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -hsync +vsync"
+.BI "      Modeline \*q1600x900\*q 119.00 1600 1696 1864 2128 900 901 904 932 -HSync +Vsync"
+.BI "      Modeline \*q1280x1024\*q 108.88 1280 1360 1496 1712 1024 1025 1028 1060 -HSync +Vsync"
+.BI "      Modeline \*q1280x720\*q   74.50 1280 1344 1472 1664  720  723  728  748  -hsync +vsync"
+.BI "      Modeline \*q1024x768\*q   60.80 1024 1056 1128 1272  768  768  770  796"
+.BI "      Modeline \*q800x600\*q    38.21  800  832  976 1008  600  612  618  631"
+.BI "      Modeline \*q640x480\*q    24.11  640  672  760  792  480  490  495   50"
+.BI "  EndSection"
+.PP
+.BI "  Section \*qScreen\*q"
+.BI "      Identifier \*qScreen0\*q"
+.BI "      Device     \*qsmi\*q"
+.BI "      Monitor    \*qMonitor0\*q"
+.BI "      DefaultDepth 24"
+.BI "      SubSection \*qDisplay\*q"
+.BI "      Modes \*q1920x1080\*q \*q1600x900\*q \*q1280x1024\*q \*q1280x720\*q \*q1024x768\*q \*q800x600\*q \*q640x480\*q"
+.BI "          Viewport   0 0"
+.BI "          Depth     24"
+.BI "      EndSubSection"
+.BI "  EndSection"
+.fi
 .PP
 The following driver 
 .B Options
-are supported:
+are supported, as btsm is a derivative from fbturbo:
 .TP
 .BI "Option \*qfbdev\*q \*q" string \*q
 The framebuffer device to use. Default: /dev/fb0.
@@ -133,4 +152,4 @@ Default: on if supported, off otherwise.
 __xservername__(__appmansuffix__), __xconfigfile__(__filemansuffix__), Xserver(__appmansuffix__),
 X(__miscmansuffix__), fbdevhw(__drivermansuffix__)
 .SH AUTHORS
-Authors include: Gerd Knorr, Michel D\(:anzer, Geert Uytterhoeven, Siarhei Siamashka
+Authors include: Gerd Knorr, Michel D\(:anzer, Geert Uytterhoeven, Siarhei Siamashka. Porting of SiliconMotion features done by Vadim Vlasov.

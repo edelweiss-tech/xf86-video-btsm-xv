@@ -1,7 +1,7 @@
-Source: xf86-video-btsm750
+Source: xserver-xorg-video-btsm
 Section: x11
 Priority: optional
-Maintainer: Konstantin Kirik (snegovick) <snegovick@uprojects.org>
+Maintainer: Vadim Vlasov <Vadim.Vlasov@t-platforms.ru>
 Build-Depends: autoconf (>= 2.64),
                automake (>= 1.11),
                autopoint,
@@ -12,8 +12,9 @@ Build-Depends: autoconf (>= 2.64),
 Standards-Version: 3.9.4
 Homepage: http://github.com/snegovick/xf86-video-btsm750
 
-Package: xf86-video-btsm750
+Package: xserver-xorg-video-btsm
 Architecture: mipsel
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: X.Org X server -- siliconmotion sm750 display driver
-  This package provides the driver for siliconmotion sm750 chip on Baikal-T1 based boards.
+Description: X.Org X server -- siliconmotion chips display driver
+  This package provides the driver for siliconmotion sm750 and 
+	sm768 chip on Baikal-T1 based boards.
