@@ -1,6 +1,7 @@
-xf86-video-btsm750 (1.4) tp-stable; urgency=medium
+xserver-xorg-video-btsm (1.6-2) stable; urgency=medium
 
   * SiliconMotion Xvideo support
+  * Updated manpages
 
  -- Vadim V. Vlasov  <vadim.vlasov@tplatforms.ru>  Mon, 29 Oct 2018 19:59:00 +0300
 

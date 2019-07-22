@@ -22,10 +22,10 @@
 
 # Initialize Autoconf
 AC_PREREQ([2.60])
-AC_INIT([xf86-video-fbturbo],
+AC_INIT([xserver-xorg-video-btsm],
         [1.4],
         [],
-        [xf86-video-btsm750])
+        [xserver-xorg-video-btsm])
 AC_CONFIG_SRCDIR([Makefile.am])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR(.)
@@ -127,7 +127,7 @@ AM_CONDITIONAL([BUILDING_DEB], [$TEST "x$enable_deb" = xyes])
 
 AC_SUBST([moduledir])
 
-DRIVER_NAME=fbturbo
+DRIVER_NAME=btsm
 AC_SUBST([DRIVER_NAME])
 
 AC_CONFIG_FILES([

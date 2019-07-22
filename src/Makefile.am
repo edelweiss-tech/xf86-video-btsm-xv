@@ -28,8 +28,8 @@ btsm_drv_la_LTLIBRARIES = btsm_drv.la
 btsm_drv_la_LDFLAGS = -module -avoid-version
 btsm_drv_ladir = @moduledir@/drivers
 
-btsmconfdir=$(sysconfdir)/X11/xorg.conf.d
-dist_btsmconf_DATA = 20-btsm.conf 30-screen.conf
+# btsmconfdir=$(sysconfdir)/X11/xorg.conf.d
+# dist_btsmconf_DATA = 20-btsm.conf 30-screen.conf
 
 btsm_drv_la_SOURCES = \
          compat-api.h \
