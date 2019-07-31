@@ -1,4 +1,8 @@
-xf86-video-btsm750 is a fork of xf86-video-fbturbo with sm750 support for Baikal-T1 CPU.
+xf86-video-btsm-xv is a fork of xf86-video-fbturbo with SM750/SM768 support for
+Baikal-T1 CPU.  The driver supports XVIDEO for SM750 (via CSC) and for SM768
+(via VideoOverlay). The driver supports the new Xorg ABI, so it works on Debian
+buster. This driver is not DRM-based, so eventually the supopt will be dropped
+by Xorg. The driver is compatible with the kernels 4.4, 4.9 and newer.
 
 Build instructions:
 1. $ autogen.sh
